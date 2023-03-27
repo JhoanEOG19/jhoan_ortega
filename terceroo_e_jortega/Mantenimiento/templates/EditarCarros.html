@@ -1,0 +1,59 @@
+{% extends 'BaseCarros.html' %}
+
+{% block title %} Edición Carros {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12 offset-md-12">
+                <h2>Editar Carros</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'edicionCarro' %}" method="POST"> {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" id="txtId" name="txtId" value='{{ carro.id }}' class="form-control"
+                                    placeholder="ID" minlength="1" maxlength="6" readonly required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="text" id="txtModelo" name="txtModelo" value='{{ carro.modelo }}' class="form-control"
+                                       placeholder="Titulo Del Libro" minlength="6" maxlength="100" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <textarea type="text" id="txtDescripcion" name="txtDescripcion" value='{{ carro.descripcion }}' class="form-control"
+                                          placeholder="Descripcion Del Carro" minlength="6" required>{{ carro.descripcion }}</textarea>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="text" id="txtPrecio" name="txtPrecio" value='{{ carro.precio }}' class="form-control"
+                                       placeholder="Precio" minlength="1" maxlength="10" required>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <p>Marca:
+                                    <Select readonly id="txtMarca" name="txtMarca" class="form-control">
+                                        <option value="{{ carro.marca }}">{{ carro.marca.nombre }}</option>
+                                    </Select>
+                                </p>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <select id="txtDisponibilidad" name="txtDisponibilidad" class="form-control">
+                                    <option hidden  value="{{ carro.disponibilidad }}">{{ carro.disponibilidad }}</option>
+                                    <option disabled>--Escoja Una Opción--</option>
+                                    <option value="True">En Stock</option>
+                                    <option value="False">Sin Stock</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

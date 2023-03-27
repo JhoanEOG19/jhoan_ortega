@@ -1,0 +1,62 @@
+{% extends 'BaseCarros.html'    %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block body %}
+    <div class="col-sm-8 col-md-8 col-lg-6 col-xl-12">
+        <h1 align="center">Listado De Carros</h1>
+    <br/>
+    <form action="{% url 'buscarcarro' %}" method="get">
+        <div class="form-group">
+            <label for="q">Buscar:</label>
+            <input type="text" class="form-control" id="q" name="q">
+        </div>
+        <h6></h6>
+        <div align="right" class="form-group">
+            <button type="submit" class="btn btn-warning btn-buscar">Buscar | Limpiar</button>
+        </div>
+    </form>
+    <br/>
+        <div class="table-responsive py-2">
+            <table class="table table-striped" id="tablacarros">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Modelo</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Disponibilidad</th>
+                        <th>Marca</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in carro %}
+                        <tr>
+                            <td>{{c.id}}</td>
+                            <td>{{c.modelo }}</td>
+                            <td>{{c.descripcion }}</td>
+                            <td>{{c.precio }}</td>
+                            <td>{{c.disponibilidad }}</td>
+                            <td>{{ c.marca.nombre }}</td>
+                            <td><a href="{% url 'editarCarro' c.id %}" class="btn btn-info">Editar</a></td>
+                            <td><a href="{% url 'borrarCarro' c.id %}" class="btn btn-danger btnEliminacion"
+                                   onclick="return confirm('¿Estás seguro de que quieres borrar este Carro del registro?')">Borrar</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function() {
+        $(".btn-buscar").click(function () {
+            var filtro = $("#q").val().toLowerCase();
+            $("#tablaEmpresas tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(filtro) > -1)
+            });
+        });
+    });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}

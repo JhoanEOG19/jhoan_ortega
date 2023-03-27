@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Login</title>
+</head>
+<body>
+      <div class="login-container">
+          <div class="login-info-container">
+            <h1 class="title">Inicia Sesion Con</h1>
+            <div class="social-login">
+                <div class="social-login-element">
+                    <img src="{% static 'img/google.svg' %}" alt="google-image">
+                    <span>Google</span>
+                </div>
+                <div class="social-login-element">
+                    <img src="{% static 'img/facebook.svg' %}" alt="facebook-image">
+                    <span>Facebook</span>
+                </div>
+            </div>
+            <p>o</p>
+            <form class="inputs-container" action="/loguearUsuario/" method="POST"> {% csrf_token %}
+                <input class="input" id="txtUsuario" name="txtUsuario" required type="text" placeholder="Usuario">
+                <input class="input" id="txtContrasena" name="txtContrasena" required type="password" placeholder="Contraseña">
+
+                <button class="btn">Iniciar Sesion</button>
+                <p>No tienes Cuenta? <span class="span"><a href="{% url 'register' %}">Registrarse</a></span></p>
+            </form>
+              <div class="error-message">
+            {% if error_message %}
+                {{ error_message }}
+            {% endif %}
+        </div>
+          </div>
+            <img class="image-container" src="{% static 'img/login.svg' %}" alt="">
+      </div>
+
+
+</body>
+</html>

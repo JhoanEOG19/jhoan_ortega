@@ -1,0 +1,64 @@
+{% extends 'BaseCarros.html' %}
+
+{% block title %} Gestion De Carros {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4 col-md-6 col-lg-8 col-xl-12">
+            <h2>Gestión De Carros</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="{% url 'registrarCarro' %}" method="POST"> {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" id="txtId" name="txtId" class="form-control"
+                                   placeholder="ID" minlength="1" maxlength="6" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="text" id="txtModelo" name="txtModelo" class="form-control"
+                                   placeholder="Modelo Del Carro" minlength="6" maxlength="100" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <textarea type="text" id="txtDescripcion" name="txtDescripcion" class="form-control"
+                                      placeholder="Descripción Del Carro" minlength="6" required></textarea>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="text" id="txtPrecio" name="txtPrecio" class="form-control"
+                                   placeholder="Precio" minlength="1" maxlength="10" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <p>Marca:
+                                <Select id="txtMarca" name="txtMarca" class="form-control">
+                                    <option disabled selected >-- Selecciona Una Opcion -- </option>
+                                    {% for c in marca %}
+                                    <option value="{{ c.id }}">{{ c.nombre }}</option>
+                                    {% endfor %}
+                                </Select>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p>Disponibilidad:
+                                <Select id="txtDisponibilidad" name="txtDisponibilidad" class="form-control">
+                                    <option disabled selected >-- Selecciona Una Opcion -- </option>
+                                    <option value="True">En Stock</option>
+                                    <option value="False">Sin Stock</option>
+                                </Select>
+                            </p>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-block text-white">Guardar Datos</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <br/>
+        <div class="mensaje {% if mensaje_tipo %}{{ mensaje_tipo }}{% endif %}">
+            {{ mensaje_texto }}
+        </div>
+    </div>
+{% endblock %}

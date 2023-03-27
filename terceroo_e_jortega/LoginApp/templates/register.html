@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration Form</title>
+	<link rel="stylesheet" href="{% static 'css/styleregister.css' %}">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="title">
+      Registrarse
+    </div>
+    <div class="form">
+    <form action="/registrarUsuario/" method="POST"> {% csrf_token %}
+        <div class="inputfield">
+          <label for="txtNombre">Nombre Completo:</label>
+          <input id="txtNombre" name="txtNombre" required type="text" class="input">
+       </div>
+        <div class="inputfield">
+          <label for="txtUsuario">Usuario:</label>
+          <input id="txtUsuario" name="txtUsuario" required type="text" class="input">
+       </div>
+       <div class="inputfield">
+          <label for="txtPassword1">Contraseña:</label>
+          <input id="txtPassword1" name="txtPassword1" required type="password" class="input">
+       </div>
+      <div class="inputfield">
+          <label for="txtPassword2">Confirmar Contraseña:</label>
+          <input id="txtPassword2" name="txtPassword2" required type="password" class="input">
+       </div>
+        <div class="inputfield">
+          <label for="txtGenero">Genero</label>
+          <div class="custom_select">
+            <select id="txtGenero" name="txtGenero" required >
+              <option disabled selected>-- Selecciona Una Opción --</option>
+                {% for c in generos %}
+              <option value="{{ c.id }}">{{ c.genero }}</option>
+                {% endfor %}
+            </select>
+          </div>
+       </div>
+        <div class="inputfield">
+          <label for="txtCiudad">Ciudad</label>
+          <div class="custom_select">
+            <select id="txtCiudad" name="txtCiudad" required >
+              <option disabled selected>-- Selecciona Una Opción --</option>
+                {% for c in ciudades %}
+              <option value="{{ c.id }}">{{ c.nombre }}</option>
+                {% endfor %}
+            </select>
+          </div>
+       </div>
+        <div class="inputfield">
+          <label for="txtCorreo">Correo Electronico</label>
+          <input id="txtCorreo" name="txtCorreo" required type="email" class="input">
+       </div>
+      <div class="inputfield">
+          <button type="submit" class="btn">Registrarse</button>
+      </div>
+        <p align="center"><a href="{% url 'loguin' %}">Iniciar Sesion</a></p>
+    </form>
+
+    </div>
+<div class="error-message">
+    {% if error_message %}
+        {{ error_message }}
+    {% endif %}
+</div>
+
+</div>
+
+</body>
+</html>
